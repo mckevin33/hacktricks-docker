@@ -36,7 +36,7 @@ This allows you to run a fully functional, self-contained HackTricks instance an
 You can pull the resulting Docker image from DockerHub:
 
 ```sh
-docker pull <your-dockerhub-username>/hacktricks:latest
+docker pull mckevin33/hacktricks:latest
 ```
 And run it, for example:
 ```sh
