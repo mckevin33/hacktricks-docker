@@ -1,0 +1,31 @@
+name: Build and Push Custom Hacktricks Image
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'
+    
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repo
+        uses: actions/checkout@v4
+      
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Clone upstream hacktricks
+        run: git clone --depth 1 https://github.com/HackTricks-wiki/hacktricks.git
+
+      - name: Build Docker image
+        run: docker build -t mckevin33/hacktricks:latest .
+
+      - name: Push Docker image
+        run: docker push mckevin33/hacktricks:latest
